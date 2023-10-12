@@ -1,0 +1,47 @@
+[
+    {
+        "OrderId": 1,
+        "TripId": 1,
+        "Trip": {
+          "TripId": 1,
+          "TripName": "Example Trip1"
+        },
+        "UserId": 1,
+        "User": {
+          "UserId": 1,
+          "UserName": "John Doe"
+        },
+        "Created": "2023-10-11T10:00:00Z",
+        "Updated": "2023-10-11T11:30:00Z",
+        "TripDateTime": "2023-10-12T15:00:00Z",
+        "PassengersNumber": 2,
+        "ChildrenNumber": 1,
+        "OrderPrice": 4000,
+        "IsPaid": true,
+        "PaymentType": 0
+      },
+      {
+        "OrderId": 2,
+        "TripId": 2,
+        "UserId": 2,
+        "Created": "2023-10-12T08:45:00Z",
+        "IsPaid": false
+      },
+      {
+        "OrderId": 3,
+        "TripId": 3,
+        "Trip": null,
+        "UserId": 3,
+        "User": null,
+        "Created": "2023-10-13T14:20:00Z",
+        "Updated": null,
+        "TripDateTime": "2023-10-15T10:30:00Z",
+        "PassengersNumber": 4,
+        "ChildrenNumber": null,
+        "OrderPrice": 8000,
+        "IsPaid": true,
+        "PaymentType": null
+      }
+      
+      
+]

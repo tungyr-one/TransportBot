@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using TransportBot.Entities;
 
 namespace TransportBot.Data
 {
@@ -17,15 +20,26 @@ namespace TransportBot.Data
             await SeedUsersAsync(context);
         }
 
-         private static async Task SeedTripsAsync(DataContext context)
+        private static async Task SeedTripsAsync(DataContext context)
+        {
+            var tripsFullPath = GetFullFilePath(TripsDemoDataFilePath);
+            if (!File.Exists(tripsFullPath) || await context.Trips.AnyAsync())
+            return;
+
+            var tripsJson = await File.ReadAllTextAsync(tripsFullPath);
+            var trips = JsonSerializer.Deserialize<TripDb[]>(tripsJson);
+
+            if (trips is not {Length: > 0})
+            return;
+
+            await context.Trips.AddRangeAsync(trips);
+            await context.SaveChangesAsync();
+        }
+
+        private static async Task SeedUsersAsync(DataContext context)
         {
 
         }
-
-      private static async Task SeedUsersAsync(DataContext context)
-      {
-
-      }
 
         private static string GetFullFilePath(string filePath)
          => $"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\\{filePath}";

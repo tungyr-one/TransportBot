@@ -1,0 +1,74 @@
+[
+    {
+        "UserId": 1,
+        "Created": "2023-10-11T08:00:00",
+        "TripsCount": 5,
+        "PhoneNumber": "+1234567890"
+    },
+    {
+        "UserId": 2,
+        "Created": "2023-10-10T14:30:00",
+        "Updated": "2023-10-11T09:15:00",
+        "Name": "John Doe",
+        "TelegramNick": "@johndoe",
+        "BirthDate": "1990-05-15",
+        "LastTrip": "2023-10-08",
+        "Discount": 0.1,
+        "SubscriptionType": "Gold",
+        "IsSubscriptionActive": true,
+        "SubscriptionTripsCount": 20,
+        "TripsCount": 10,
+        "PhoneNumber": "+9876543210",
+        "Addresses": [
+            {
+                "Street": "123 Main St",
+                "City": "Exampleville",
+                "PostalCode": "12345"
+            },
+            {
+                "Street": "456 Elm St",
+                "City": "Sampletown",
+                "PostalCode": "67890"
+            }
+        ],
+        "Note": "Preferred customer"
+    },
+    {
+        "UserId": 3,
+        "Created": "2023-10-09T18:45:00",
+        "Updated": "2023-10-10T11:30:00",
+        "Name": "Alice Smith",
+        "TelegramNick": "@alicesmith",
+        "BirthDate": "1985-03-20",
+        "LastTrip": "2023-10-07",
+        "Discount": null,
+        "SubscriptionType": "Silver",
+        "IsSubscriptionActive": false,
+        "SubscriptionTripsCount": 0,
+        "TripsCount": 8,
+        "PhoneNumber": "+1122334455",
+        "Addresses": [
+            {
+                "Street": "789 Oak St",
+                "City": "Sampleville",
+                "PostalCode": "54321"
+            }
+        ],
+        "Note": "Loyal customer",
+        "Orders": [
+            {
+                "OrderId": 101,
+                "OrderDate": "2023-10-10T15:30:00",
+                "TotalAmount": 50.75
+            },
+            {
+                "OrderId": 102,
+                "OrderDate": "2023-10-11T09:00:00",
+                "TotalAmount": 75.20
+            }
+        ]
+    }
+    
+    
+    
+]

@@ -1,0 +1,35 @@
+[
+    {
+        "AddressId": 1,
+        "Address": "123 Main Street",
+        "GeoLink": "https://maps.google.com/123main",
+        "UserId": 1001,
+        "User": {
+          "UserId": 1001,
+          "FirstName": "John",
+          "LastName": "Doe"
+        }
+      },
+      {
+        "AddressId": 2,
+        "Address": "456 Elm Avenue",
+        "GeoLink": null,
+        "UserId": 1002,
+        "User": {
+          "UserId": 1002,
+          "FirstName": "Jane",
+          "LastName": "Smith"
+        }
+      },
+      {
+        "AddressId": 3,
+        "Address": "789 Oak Road",
+        "GeoLink": "https://maps.google.com/789oak",
+        "UserId": 1003,
+        "User": {
+          "UserId": 1003,
+          "FirstName": "Alice",
+          "LastName": "Johnson"
+        }
+      }       
+]
