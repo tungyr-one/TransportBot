@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Threading.Tasks;
-using TransportBot.Helpers;
-
 namespace TransportBot.Entities
 {
     public class OrderDb

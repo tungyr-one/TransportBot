@@ -1,5 +1,3 @@
-using TransportBot.Helpers;
-
 namespace TransportBot.Entities
 {
     public class UserDb
