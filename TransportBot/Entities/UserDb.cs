@@ -17,5 +17,6 @@ namespace TransportBot.Entities
         public string PhoneNumber { get; set; }
         public IList<AddressDb> Addresses { get; set; }
         public string? Note { get; set; }
+        public IList<OrderDb> Orders { get; set; }
     }
 }
