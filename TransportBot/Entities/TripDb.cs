@@ -1,18 +1,15 @@
 namespace TransportBot.Entities
 {
-    public class OrderDb
+    public class TripDb
     {
-        public int OrderId { get; set; }
         public int TripId { get; set; }
-        public TripDb Trip { get; set; }
-        public int UserId { get; set; }
-        public UserDb User { get; set; }
+        public IList<OrderDb> Orders { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime TripDateTime { get; set; }
         public int PassangersNumber { get; set; }
         public int? ChildrenNumber { get; set; }
-        public decimal OrderPrice { get; set; }
+        public decimal TripPrice { get; set; }
         public bool IsPaid { get; set; }
         public PaymentType PaymentType { get; set; }
     }
