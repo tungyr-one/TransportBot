@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TransportBot.Entities
 {
     public class OrderDb
     {
+        [Key]
         public int OrderId { get; set; }
         public int TripId { get; set; }
         public TripDb Trip { get; set; }
@@ -15,5 +18,6 @@ namespace TransportBot.Entities
         public decimal OrderPrice { get; set; }
         public bool IsPaid { get; set; }
         public PaymentType PaymentType { get; set; }
+        public string? UserNotes { get; set; }
     }
 }

@@ -37,7 +37,7 @@ try
     
     var context = scope.ServiceProvider.GetRequiredService<DataContext>();
     await context.Database.MigrateAsync();
-    // await DemoDataSeeder.SeedAsync(context);
+    await DemoDataSeeder.SeedAsync(context);
 }
 catch(Exception ex)
 {
