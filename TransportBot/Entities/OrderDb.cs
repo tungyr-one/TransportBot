@@ -12,7 +12,6 @@ namespace TransportBot.Entities
         public UserDb User { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
-        public DateTime TripDateTime { get; set; }
         public int PassangersNumber { get; set; }
         public int? ChildrenNumber { get; set; }
         public decimal OrderPrice { get; set; }

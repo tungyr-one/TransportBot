@@ -90,7 +90,6 @@ namespace TransportBot.Migrations
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    TripDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PassangersNumber = table.Column<int>(type: "integer", nullable: false),
                     ChildrenNumber = table.Column<int>(type: "integer", nullable: true),
                     OrderPrice = table.Column<decimal>(type: "numeric", nullable: false),

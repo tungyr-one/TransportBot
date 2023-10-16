@@ -12,7 +12,7 @@ using TransportBot.Data;
 namespace TransportBot.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231016191427_InitialMigration")]
+    [Migration("20231016201019_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -80,9 +80,6 @@ namespace TransportBot.Migrations
 
                     b.Property<int>("PaymentType")
                         .HasColumnType("integer");
-
-                    b.Property<DateTime>("TripDateTime")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("TripId")
                         .HasColumnType("integer");
