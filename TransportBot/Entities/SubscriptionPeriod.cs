@@ -1,6 +1,6 @@
 namespace TransportBot.Entities
 {
-    public enum SubscriptionType
+    public enum SubscriptionPeriod
     {
         ThreeMonths = 0,
         FourMonths = 1,

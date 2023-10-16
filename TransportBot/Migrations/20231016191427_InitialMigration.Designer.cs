@@ -12,7 +12,7 @@ using TransportBot.Data;
 namespace TransportBot.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231013043155_InitialMigration")]
+    [Migration("20231016191427_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -146,8 +146,8 @@ namespace TransportBot.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
                     NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("UserId"), 7L, null, null, null, null, null);
 
-                    b.Property<DateOnly?>("BirthDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
@@ -158,8 +158,8 @@ namespace TransportBot.Migrations
                     b.Property<bool?>("IsSubscriptionActive")
                         .HasColumnType("boolean");
 
-                    b.Property<DateOnly?>("LastTrip")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("LastTrip")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");

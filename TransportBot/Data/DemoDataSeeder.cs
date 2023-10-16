@@ -48,6 +48,14 @@ namespace TransportBot.Data
             if (users is not {Length: > 0})
             return;
 
+            foreach(var user in users)
+            {
+                user.Created = user.Created.ToUniversalTime();
+                user.BirthDate = user.BirthDate?.ToUniversalTime();
+                user.Updated = user.Updated?.ToUniversalTime();
+                user.LastTrip = user.LastTrip?.ToUniversalTime();
+            }
+
             await context.Users.AddRangeAsync(users);
             await context.SaveChangesAsync();
         }
