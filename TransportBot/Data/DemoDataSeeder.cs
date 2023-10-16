@@ -31,7 +31,7 @@ namespace TransportBot.Data
             return;
 
             var usersJson = await File.ReadAllTextAsync(usersFullPath);
-            var users = JsonSerializer.Deserialize<UserDb[]>(usersJson);
+            var users = JsonSerializer.Deserialize<UserEntity[]>(usersJson);
 
             if (users is not {Length: > 0})
             return;
@@ -55,7 +55,7 @@ namespace TransportBot.Data
             return;
 
             var addressesJson = await File.ReadAllTextAsync(addressesFullPath);
-            var addresses = JsonSerializer.Deserialize<AddressDb[]>(addressesJson);
+            var addresses = JsonSerializer.Deserialize<AddressEntity[]>(addressesJson);
 
             if (addresses is not {Length: > 0})
             return;
@@ -71,7 +71,7 @@ namespace TransportBot.Data
             return;
 
             var tripsJson = await File.ReadAllTextAsync(tripsFullPath);
-            var trips = JsonSerializer.Deserialize<TripDb[]>(tripsJson);
+            var trips = JsonSerializer.Deserialize<TripEntity[]>(tripsJson);
 
             if (trips is not {Length: > 0})
             return;
@@ -94,7 +94,7 @@ namespace TransportBot.Data
             return;
 
             var ordersJson = await File.ReadAllTextAsync(ordersFullPath);
-            var orders = JsonSerializer.Deserialize<OrderDb[]>(ordersJson);
+            var orders = JsonSerializer.Deserialize<OrderEntity[]>(ordersJson);
 
             if (orders is not {Length: > 0})
             return;

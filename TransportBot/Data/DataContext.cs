@@ -10,41 +10,41 @@ namespace TransportBot.Data
         }
 
 
-        public DbSet<TripDb> Trips { get; set; }
-        public DbSet<OrderDb> Orders { get; set; }
-        public DbSet<UserDb> Users { get; set; }
-        public DbSet<AddressDb> Addresses { get; set; }
+        public DbSet<TripEntity> Trips { get; set; }
+        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<AddressEntity> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TripDb>()
+            modelBuilder.Entity<TripEntity>()
             .Property(c => c.TripId)
             .HasIdentityOptions(startValue: 7)
             .IsRequired();
 
-            modelBuilder.Entity<TripDb>()
+            modelBuilder.Entity<TripEntity>()
             .HasMany(t => t.Orders)
             .WithOne(o => o.Trip)
             .HasForeignKey(c => c.TripId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<OrderDb>()
+            modelBuilder.Entity<OrderEntity>()
             .Property(c => c.OrderId)
             .HasIdentityOptions(startValue: 7)
             .IsRequired();
             
-            modelBuilder.Entity<OrderDb>()
+            modelBuilder.Entity<OrderEntity>()
             .HasOne(o => o.User)
             .WithMany(u => u.Orders);
 
-            modelBuilder.Entity<UserDb>()
+            modelBuilder.Entity<UserEntity>()
             .Property(c => c.UserId)
             .HasIdentityOptions(startValue: 7)
             .IsRequired();
 
-            modelBuilder.Entity<UserDb>()
+            modelBuilder.Entity<UserEntity>()
             .HasMany(u => u.Addresses)
             .WithOne(a => a.User);        
         }

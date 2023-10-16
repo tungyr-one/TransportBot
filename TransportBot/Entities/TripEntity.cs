@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TransportBot.Entities
 {
-    public class TripDb
+    public class TripEntity
     {
         [Key]
         public int TripId { get; set; }
-        public IList<OrderDb>? Orders { get; set; }
+        public IList<OrderEntity>? Orders { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime TripDateTime { get; set; }

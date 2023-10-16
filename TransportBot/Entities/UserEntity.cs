@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TransportBot.Entities
 {
-    public class UserDb
+    public class UserEntity
     {
         [Key]
         public int UserId { get; set; }
@@ -13,7 +13,7 @@ namespace TransportBot.Entities
         public DateTime? BirthDate { get; set; }
         public DateTime? LastTrip { get; set; }
         public string PhoneNumber { get; set; }
-        public IList<AddressDb> Addresses { get; set; }
+        public IList<AddressEntity> Addresses { get; set; }
         public int TripsCount { get; set; }
 
         public decimal? Discount { get; set; }
@@ -22,6 +22,6 @@ namespace TransportBot.Entities
         public int? SubscriptionTripsCount { get; set; }
         public string? Notes { get; set; }
 
-        public IList<OrderDb> Orders { get; set; }
+        public IList<OrderEntity> Orders { get; set; }
     }
 }
