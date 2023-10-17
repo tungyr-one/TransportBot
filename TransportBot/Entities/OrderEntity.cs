@@ -12,7 +12,7 @@ namespace TransportBot.Entities
         public UserEntity User { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
-        public int PassangersNumber { get; set; }
+        public int PassengersNumber { get; set; }
         public int? ChildrenNumber { get; set; }
         public decimal OrderPrice { get; set; }
         public bool IsPaid { get; set; }

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TransportBot.Entities;
 
@@ -15,13 +11,61 @@ namespace TransportBot.Data
         private const string UsersDemoDataFilePath = "./Data/Seed/users.json";
         private const string AddressesDemoDataFilePath = "./Data/Seed/addresses.json";
         private const string OrdersDemoDataFilePath = "./Data/Seed/orders.json";
+        private const string DriversDemoDataFilePath = "./Data/Seed/drivers.json";
+        private const string TransportDemoDataFilePath = "./Data/Seed/transports.json";
 
         public static async Task SeedAsync(DataContext context)
         {
             await SeedUsersAsync(context);
             await SeedAddressesAsync(context);
+            await SeedDriversAsync(context);
+            await SeedTransportsAsync(context);
             await SeedTripsAsync(context);
-            // await SeedOrdersAsync(context);
+            await SeedOrdersAsync(context);
+        }
+
+        private static async Task SeedDriversAsync(DataContext context)
+        {
+            var driversFullPath = GetFullFilePath(DriversDemoDataFilePath);
+            if (!File.Exists(driversFullPath) || await context.Drivers.AnyAsync())
+            return;
+
+            var driversJson = await File.ReadAllTextAsync(driversFullPath);
+            var drivers = JsonSerializer.Deserialize<DriverEntity[]>(driversJson);
+
+            if (drivers is not {Length: > 0})
+            return;
+
+            foreach(var driver in drivers)
+            {
+                driver.HiringDate = driver.HiringDate.ToUniversalTime();
+            }
+
+            await context.Drivers.AddRangeAsync(drivers);
+            await context.SaveChangesAsync();
+        }
+
+        private static async Task SeedTransportsAsync(DataContext context)
+        {
+            var transportsFullPath = GetFullFilePath(TransportDemoDataFilePath);
+            if (!File.Exists(transportsFullPath) || await context.Transports.AnyAsync())
+            return;
+
+            var transportsJson = await File.ReadAllTextAsync(transportsFullPath);
+            var transports = JsonSerializer.Deserialize<TransportEntity[]>(transportsJson);
+
+            if (transports is not {Length: > 0})
+            return;
+
+            foreach(var transport in transports)
+            {
+                transport.PurchaseDate = transport.PurchaseDate.ToUniversalTime();
+                transport.RegisterDate = transport.RegisterDate.ToUniversalTime();
+                transport.LastServiceDate = transport.LastServiceDate?.ToUniversalTime();
+            }
+
+            await context.Transports.AddRangeAsync(transports);
+            await context.SaveChangesAsync();
         }
 
         private static async Task SeedUsersAsync(DataContext context)

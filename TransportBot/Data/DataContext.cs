@@ -14,6 +14,8 @@ namespace TransportBot.Data
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<AddressEntity> Addresses { get; set; }
+        public DbSet<DriverEntity> Drivers { get; set; }
+        public DbSet<TransportEntity> Transports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,7 +48,22 @@ namespace TransportBot.Data
 
             modelBuilder.Entity<UserEntity>()
             .HasMany(u => u.Addresses)
-            .WithOne(a => a.User);        
+            .WithOne(a => a.User);      
+
+            modelBuilder.Entity<AddressEntity>()
+            .Property(c => c.AddressId)
+            .HasIdentityOptions(startValue: 7)
+            .IsRequired();  
+
+            modelBuilder.Entity<DriverEntity>()
+            .Property(c => c.DriverId)
+            .HasIdentityOptions(startValue: 7)
+            .IsRequired();  
+
+            modelBuilder.Entity<TransportEntity>()
+            .Property(c => c.TransportId)
+            .HasIdentityOptions(startValue: 7)
+            .IsRequired();  
         }
     }
 }

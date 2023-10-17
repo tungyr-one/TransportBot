@@ -1,27 +1,27 @@
-[
+[   
     {
-        "UserId": 1,
+    "UserId": 1,
+    "Created": "2023-10-10T14:30:00",
+    "Updated": "2023-10-11T09:15:00",
+    "Name": "John Doe",
+    "TelegramNick": "@johndoe",
+    "BirthDate": "1990-05-15T09:15:00",
+    "LastTrip": "2023-10-08T09:15:00",
+    "PhoneNumber": "+9876543210",
+    "Addresses": [],
+    "TripsCount": 10,
+    "Discount": 0.1,
+    "SubscriptionPeriod": 1,
+    "IsSubscriptionActive": true,
+    "SubscriptionTripsCount": 1,
+    "Notes": "Preferred customer"
+    },
+    {
+        "UserId": 2,
         "Created": "2023-10-11T08:00:00",
         "TelegramNick": "@pupkin",
         "TripsCount": 5,
         "PhoneNumber": "+1234567890"
-    },
-    {
-        "UserId": 2,
-        "Created": "2023-10-10T14:30:00",
-        "Updated": "2023-10-11T09:15:00",
-        "Name": "John Doe",
-        "TelegramNick": "@johndoe",
-        "BirthDate": "1990-05-15T09:15:00",
-        "LastTrip": "2023-10-08T09:15:00",
-        "Discount": 0.1,
-        "SubscriptionPeriod": 1,
-        "IsSubscriptionActive": true,
-        "SubscriptionTripsCount": 20,
-        "TripsCount": 10,
-        "PhoneNumber": "+9876543210",
-        "Addresses": [],
-        "Note": "Preferred customer"
     },
     {
         "UserId": 3,
@@ -38,7 +38,7 @@
         "TripsCount": 8,
         "PhoneNumber": "+1122334455",
         "Addresses": [],
-        "Note": "Loyal customer",
+        "Notes": "Loyal customer",
         "Orders": []
     }
 ]

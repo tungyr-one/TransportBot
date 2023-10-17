@@ -1,0 +1,29 @@
+[
+    {
+        "DriverId": 1,
+        "Name": "John Doe",
+        "PhoneNumber": "+1234567890",
+        "TelegramNick": "johndoe123",
+        "HiringDate": "2023-01-15T00:00:00",
+        "AddressId": 1,
+        "SalaryMonth": 3500.50
+    },
+    {
+        "DriverId": 2,
+        "Name": "Alice Smith",
+        "PhoneNumber": "+9876543210",
+        "TelegramNick": "alicesmith456",
+        "HiringDate": "2022-08-20T00:00:00",
+        "AddressId": 2,
+        "SalaryMonth": 4000.00
+    },
+    {
+        "DriverId": 3,
+        "Name": "Bob Johnson",
+        "PhoneNumber": "+1112223333",
+        "TelegramNick": "bobjohnson789",
+        "HiringDate": "2023-03-10T00:00:00",
+        "AddressId": 3,
+        "SalaryMonth": 3200.00
+    }
+]

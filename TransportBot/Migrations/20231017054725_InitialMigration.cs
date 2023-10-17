@@ -13,22 +13,25 @@ namespace TransportBot.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Trips",
+                name: "Transports",
                 columns: table => new
                 {
-                    TripId = table.Column<int>(type: "integer", nullable: false)
+                    TransportId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    TripDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PassangersNumber = table.Column<int>(type: "integer", nullable: false),
-                    ChildrenNumber = table.Column<int>(type: "integer", nullable: true),
-                    TripProfit = table.Column<decimal>(type: "numeric", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    NumberPlate = table.Column<string>(type: "text", nullable: false),
+                    PassengersCapacity = table.Column<int>(type: "integer", nullable: false),
+                    PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastServiceDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    AverageFuelConsumption = table.Column<long>(type: "bigint", nullable: true),
+                    InitialMileage = table.Column<int>(type: "integer", nullable: false),
+                    CurrentMileage = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Trips", x => x.TripId);
+                    table.PrimaryKey("PK_Transports", x => x.TransportId);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,6 +65,7 @@ namespace TransportBot.Migrations
                 columns: table => new
                 {
                     AddressId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     City = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: false),
@@ -80,6 +84,63 @@ namespace TransportBot.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Drivers",
+                columns: table => new
+                {
+                    DriverId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    TelegramNick = table.Column<string>(type: "text", nullable: false),
+                    HiringDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AddressId = table.Column<int>(type: "integer", nullable: false),
+                    SalaryMonth = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Drivers", x => x.DriverId);
+                    table.ForeignKey(
+                        name: "FK_Drivers_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trips",
+                columns: table => new
+                {
+                    TripId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    TripDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PassengersNumber = table.Column<int>(type: "integer", nullable: false),
+                    TripProfit = table.Column<decimal>(type: "numeric", nullable: false),
+                    DriverId = table.Column<int>(type: "integer", nullable: false),
+                    TransportId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trips", x => x.TripId);
+                    table.ForeignKey(
+                        name: "FK_Trips_Drivers_DriverId",
+                        column: x => x.DriverId,
+                        principalTable: "Drivers",
+                        principalColumn: "DriverId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trips_Transports_TransportId",
+                        column: x => x.TransportId,
+                        principalTable: "Transports",
+                        principalColumn: "TransportId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -90,7 +151,7 @@ namespace TransportBot.Migrations
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    PassangersNumber = table.Column<int>(type: "integer", nullable: false),
+                    PassengersNumber = table.Column<int>(type: "integer", nullable: false),
                     ChildrenNumber = table.Column<int>(type: "integer", nullable: true),
                     OrderPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     IsPaid = table.Column<bool>(type: "boolean", nullable: false),
@@ -120,6 +181,11 @@ namespace TransportBot.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Drivers_AddressId",
+                table: "Drivers",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_TripId",
                 table: "Orders",
                 column: "TripId");
@@ -128,19 +194,35 @@ namespace TransportBot.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_DriverId",
+                table: "Trips",
+                column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_TransportId",
+                table: "Trips",
+                column: "TransportId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Addresses");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Trips");
+
+            migrationBuilder.DropTable(
+                name: "Drivers");
+
+            migrationBuilder.DropTable(
+                name: "Transports");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "Users");

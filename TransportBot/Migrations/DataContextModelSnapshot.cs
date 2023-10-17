@@ -22,13 +22,14 @@ namespace TransportBot.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TransportBot.Entities.AddressDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.AddressEntity", b =>
                 {
                     b.Property<int>("AddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AddressId"));
+                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("AddressId"), 7L, null, null, null, null, null);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -51,7 +52,44 @@ namespace TransportBot.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("TransportBot.Entities.OrderDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.DriverEntity", b =>
+                {
+                    b.Property<int>("DriverId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DriverId"));
+                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("DriverId"), 7L, null, null, null, null, null);
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("HiringDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("SalaryMonth")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("TelegramNick")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("DriverId");
+
+                    b.HasIndex("AddressId");
+
+                    b.ToTable("Drivers");
+                });
+
+            modelBuilder.Entity("TransportBot.Entities.OrderEntity", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
@@ -72,7 +110,7 @@ namespace TransportBot.Migrations
                     b.Property<decimal>("OrderPrice")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("PassangersNumber")
+                    b.Property<int>("PassengersNumber")
                         .HasColumnType("integer");
 
                     b.Property<int>("PaymentType")
@@ -99,7 +137,50 @@ namespace TransportBot.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("TransportBot.Entities.TripDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.TransportEntity", b =>
+                {
+                    b.Property<int>("TransportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TransportId"));
+                    NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("TransportId"), 7L, null, null, null, null, null);
+
+                    b.Property<long?>("AverageFuelConsumption")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("CurrentMileage")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("InitialMileage")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("LastServiceDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("NumberPlate")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("PassengersCapacity")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("TransportId");
+
+                    b.ToTable("Transports");
+                });
+
+            modelBuilder.Entity("TransportBot.Entities.TripEntity", b =>
                 {
                     b.Property<int>("TripId")
                         .ValueGeneratedOnAdd()
@@ -108,13 +189,16 @@ namespace TransportBot.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TripId"));
                     NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("TripId"), 7L, null, null, null, null, null);
 
-                    b.Property<int?>("ChildrenNumber")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PassangersNumber")
+                    b.Property<int>("DriverId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("PassengersNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TransportId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("TripDateTime")
@@ -128,10 +212,14 @@ namespace TransportBot.Migrations
 
                     b.HasKey("TripId");
 
+                    b.HasIndex("DriverId");
+
+                    b.HasIndex("TransportId");
+
                     b.ToTable("Trips");
                 });
 
-            modelBuilder.Entity("TransportBot.Entities.UserDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.UserEntity", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -186,9 +274,9 @@ namespace TransportBot.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TransportBot.Entities.AddressDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.AddressEntity", b =>
                 {
-                    b.HasOne("TransportBot.Entities.UserDb", "User")
+                    b.HasOne("TransportBot.Entities.UserEntity", "User")
                         .WithMany("Addresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -197,15 +285,26 @@ namespace TransportBot.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TransportBot.Entities.OrderDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.DriverEntity", b =>
                 {
-                    b.HasOne("TransportBot.Entities.TripDb", "Trip")
+                    b.HasOne("TransportBot.Entities.AddressEntity", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("TransportBot.Entities.OrderEntity", b =>
+                {
+                    b.HasOne("TransportBot.Entities.TripEntity", "Trip")
                         .WithMany("Orders")
                         .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("TransportBot.Entities.UserDb", "User")
+                    b.HasOne("TransportBot.Entities.UserEntity", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -216,12 +315,31 @@ namespace TransportBot.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TransportBot.Entities.TripDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.TripEntity", b =>
+                {
+                    b.HasOne("TransportBot.Entities.DriverEntity", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TransportBot.Entities.TransportEntity", "Transport")
+                        .WithMany()
+                        .HasForeignKey("TransportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Driver");
+
+                    b.Navigation("Transport");
+                });
+
+            modelBuilder.Entity("TransportBot.Entities.TripEntity", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("TransportBot.Entities.UserDb", b =>
+            modelBuilder.Entity("TransportBot.Entities.UserEntity", b =>
                 {
                     b.Navigation("Addresses");
 
