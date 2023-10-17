@@ -9,7 +9,6 @@ namespace TransportBot.Data
         {
         }
 
-
         public DbSet<TripEntity> Trips { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<UserEntity> Users { get; set; }

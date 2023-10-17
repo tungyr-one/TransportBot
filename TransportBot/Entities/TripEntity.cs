@@ -14,9 +14,9 @@ namespace TransportBot.Entities
         public decimal TripProfit { get; set; }
 
         public int DriverId { get; set; }
-        public DriverEntity Driver { get; set; }
+        public DriverEntity Driver { get; set; } = new DriverEntity();
         public int TransportId { get; set; }
-        public TransportEntity Transport { get; set; }
+        public TransportEntity Transport { get; set; } = new TransportEntity();
 
     }
 }
