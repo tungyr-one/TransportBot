@@ -7,9 +7,9 @@ namespace TransportBot.Entities
         [Key]
         public int OrderId { get; set; }
         public int TripId { get; set; }
-        public TripEntity Trip { get; set; }  =  new TripEntity();
+        public TripEntity Trip { get; set; }
         public int UserId { get; set; }
-        public UserEntity User { get; set; } = new UserEntity();
+        public UserEntity User { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
         public int PassengersNumber { get; set; }

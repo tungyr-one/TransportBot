@@ -19,8 +19,8 @@ namespace TransportBot.Migrations
                     TransportId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    NumberPlate = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    NumberPlate = table.Column<string>(type: "text", nullable: true),
                     PassengersCapacity = table.Column<int>(type: "integer", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     RegisterDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -44,10 +44,10 @@ namespace TransportBot.Migrations
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    TelegramNick = table.Column<string>(type: "text", nullable: false),
+                    TelegramNick = table.Column<string>(type: "text", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastTrip = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     TripsCount = table.Column<int>(type: "integer", nullable: false),
                     Discount = table.Column<decimal>(type: "numeric", nullable: true),
                     SubscriptionType = table.Column<int>(type: "integer", nullable: true),
@@ -67,9 +67,11 @@ namespace TransportBot.Migrations
                     AddressId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    City = table.Column<string>(type: "text", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: true),
+                    Address = table.Column<string>(type: "text", nullable: true),
                     GeoLink = table.Column<string>(type: "text", nullable: true),
+                    Coordinates = table.Column<string>(type: "text", nullable: true),
+                    Notes = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -90,9 +92,9 @@ namespace TransportBot.Migrations
                     DriverId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    TelegramNick = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    TelegramNick = table.Column<string>(type: "text", nullable: true),
                     HiringDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     AddressId = table.Column<int>(type: "integer", nullable: false),
                     SalaryMonth = table.Column<decimal>(type: "numeric", nullable: false)
@@ -115,6 +117,9 @@ namespace TransportBot.Migrations
                     TripId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:IdentitySequenceOptions", "'7', '1', '', '', 'False', '1'")
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TripType = table.Column<int>(type: "integer", nullable: false),
+                    DepartureAddressId = table.Column<int>(type: "integer", nullable: false),
+                    DestinationAddressId = table.Column<int>(type: "integer", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Updated = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     TripDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -126,6 +131,18 @@ namespace TransportBot.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trips", x => x.TripId);
+                    table.ForeignKey(
+                        name: "FK_Trips_Addresses_DepartureAddressId",
+                        column: x => x.DepartureAddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trips_Addresses_DestinationAddressId",
+                        column: x => x.DestinationAddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Trips_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -194,6 +211,16 @@ namespace TransportBot.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_DepartureAddressId",
+                table: "Trips",
+                column: "DepartureAddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_DestinationAddressId",
+                table: "Trips",
+                column: "DestinationAddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trips_DriverId",

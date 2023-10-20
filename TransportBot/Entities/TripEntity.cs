@@ -7,6 +7,11 @@ namespace TransportBot.Entities
         [Key]
         public int TripId { get; set; }
         public IList<OrderEntity>? Orders { get; set; }
+        public TripType TripType { get; set; }
+        public int DepartureAddressId { get; set; }
+        public AddressEntity DepartureAddress { get; set; }
+        public int DestinationAddressId { get; set; }
+        public AddressEntity DestinationAddress { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime TripDateTime { get; set; }
@@ -14,9 +19,9 @@ namespace TransportBot.Entities
         public decimal TripProfit { get; set; }
 
         public int DriverId { get; set; }
-        public DriverEntity Driver { get; set; } = new DriverEntity();
+        public DriverEntity Driver { get; set; }
         public int TransportId { get; set; }
-        public TransportEntity Transport { get; set; } = new TransportEntity();
+        public TransportEntity Transport { get; set; }
 
     }
 }

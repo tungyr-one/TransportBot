@@ -10,11 +10,11 @@ namespace TransportBot.Entities
         public DateTime Created { get; set; }
         public DateTime? Updated { get; set; }
         public string? Name { get; set; }
-        public string TelegramNick { get; set; } = "@DefaultNick";
+        public string TelegramNick { get; set; }
         public DateTime? BirthDate { get; set; }
         public DateTime? LastTrip { get; set; }
-        public string PhoneNumber { get; set; } = "+381 123456";
-        public IList<AddressEntity> Addresses { get; set; } = new List<AddressEntity>();
+        public string PhoneNumber { get; set; }
+        public IList<AddressEntity> Addresses { get; set; }
         public int TripsCount { get; set; }
 
         public decimal? Discount { get; set; }

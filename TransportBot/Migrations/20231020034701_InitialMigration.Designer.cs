@@ -12,7 +12,7 @@ using TransportBot.Data;
 namespace TransportBot.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231017054725_InitialMigration")]
+    [Migration("20231020034701_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -35,14 +35,18 @@ namespace TransportBot.Migrations
                     NpgsqlPropertyBuilderExtensions.HasIdentityOptions(b.Property<int>("AddressId"), 7L, null, null, null, null, null);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("City")
-                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Coordinates")
                         .HasColumnType("text");
 
                     b.Property<string>("GeoLink")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
@@ -71,18 +75,15 @@ namespace TransportBot.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<decimal>("SalaryMonth")
                         .HasColumnType("numeric");
 
                     b.Property<string>("TelegramNick")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("DriverId");
@@ -162,11 +163,9 @@ namespace TransportBot.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NumberPlate")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("PassengersCapacity")
@@ -195,6 +194,12 @@ namespace TransportBot.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("DepartureAddressId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DestinationAddressId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("DriverId")
                         .HasColumnType("integer");
 
@@ -210,10 +215,17 @@ namespace TransportBot.Migrations
                     b.Property<decimal>("TripProfit")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("TripType")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("TripId");
+
+                    b.HasIndex("DepartureAddressId");
+
+                    b.HasIndex("DestinationAddressId");
 
                     b.HasIndex("DriverId");
 
@@ -253,7 +265,6 @@ namespace TransportBot.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("SubscriptionTripsCount")
@@ -263,7 +274,6 @@ namespace TransportBot.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("TelegramNick")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("TripsCount")
@@ -320,6 +330,18 @@ namespace TransportBot.Migrations
 
             modelBuilder.Entity("TransportBot.Entities.TripEntity", b =>
                 {
+                    b.HasOne("TransportBot.Entities.AddressEntity", "DepartureAddress")
+                        .WithMany()
+                        .HasForeignKey("DepartureAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TransportBot.Entities.AddressEntity", "DestinationAddress")
+                        .WithMany()
+                        .HasForeignKey("DestinationAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TransportBot.Entities.DriverEntity", "Driver")
                         .WithMany()
                         .HasForeignKey("DriverId")
@@ -331,6 +353,10 @@ namespace TransportBot.Migrations
                         .HasForeignKey("TransportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("DepartureAddress");
+
+                    b.Navigation("DestinationAddress");
 
                     b.Navigation("Driver");
 

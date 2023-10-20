@@ -6,8 +6,8 @@ namespace TransportBot.Entities
     {
         [Key]
         public int TransportId { get; set; }
-        public string Name { get; set; } = "default";
-        public string NumberPlate { get; set; } = "RU000BS";
+        public string Name { get; set; }
+        public string NumberPlate { get; set; }
         public int PassengersCapacity { get; set; }
         public DateTime PurchaseDate { get; set; }
         public DateTime RegisterDate { get; set; }
